@@ -4,3 +4,6 @@
 [submodule "lib/geb"]
 	path = lib/geb
 	url = https://github.com/money-god/geb
+[submodule "lib/geb-treasury-reimbursement"]
+	path = lib/geb-treasury-reimbursement
+	url = https://github.com/money-god/geb-treasury-reimbursement
