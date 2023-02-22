@@ -15,20 +15,16 @@ abstract contract SafeEngineLike {
 contract PingerAbstractor {
     CoinJoinLike immutable coinJoin;
     SafeEngineLike immutable safeEngine;
-    address immutable target;
-    bytes data;
 
-    constructor(address coinJoin_, address target_, bytes memory data_) public {
+    constructor(address coinJoin_) public {
         coinJoin = CoinJoinLike(coinJoin_);
         safeEngine = SafeEngineLike(CoinJoinLike(coinJoin_).safeEngine());
-        target = target_;
-        data = data_;
 
         SafeEngineLike(CoinJoinLike(coinJoin_).safeEngine()).approveSAFEModification(coinJoin_);
     }
 
-    function ping() external {
-        (bool success, ) = target.call(data);
+    function ping(address target_, bytes calldata data_) external {
+        (bool success, ) = target_.call(data_);
         require(success);
 
         coinJoin.exit(msg.sender, safeEngine.coinBalance(address(this)) / 10**27);
