@@ -63,17 +63,15 @@ contract PingerAbstractorTest is Test {
 
         // setUp abstractor        
         abstractor = new PingerAbstractor(
-            address(coinJoin),
-            address(pinger),
-            abi.encodeWithSignature("ping(address,uint256)", address(0), 1 ether)
+            address(coinJoin)
         );
     }
 
     function testPing() public {
-        abstractor.ping();
+        abstractor.ping(address(pinger), abi.encodeWithSignature("ping(address,uint256)", address(0), 1 ether));
         assertEq(coin.balanceOf(address(this)), 1 ether);
 
-        abstractor.ping();
+        abstractor.ping(address(pinger), abi.encodeWithSignature("ping(address,uint256)", address(0), 1 ether));
         assertEq(coin.balanceOf(address(this)), 2 ether);        
     }
 }
